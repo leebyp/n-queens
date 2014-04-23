@@ -15,9 +15,23 @@
 
 window.findNRooksSolution = function(n) {
   var solution = undefined; //fixme
-
-  console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
-  return solution;
+  //for every point in the board
+  //try to place a rook there,
+  //  if rookconflict detected, remove back from the board
+  //continue until all rooks for placed
+  //return board
+  var board = new Board({n: n});
+  for(var i = 0; i < n; i++) {
+    for(var j = 0; j < n; j++) {
+      board.togglePiece(i, j);
+      if (board.hasAnyRowConflicts() || board.hasAnyColConflicts()) {
+        board.togglePiece(i,j);
+      }
+    }
+  }
+  // console.dir(board);
+  console.log('Single solution for ' + n + ' rooks:', JSON.stringify(board));
+  return board.rows();
 };
 
 
