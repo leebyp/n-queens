@@ -43,22 +43,26 @@ describe('solvers', function() {
   describe('countNQueensSolutions()', function() {
 
     xit('finds the number of valid solutions for n of 0-8', function() {
-      _.range(0, 9).map(function(n) {
+      _.range(0, 12).map(function(n) {
         var solutionCount = countNQueensSolutions(n);
-        var expectedSolutionCount = [1, 1, 0, 0, 2, 10, 4, 40, 92][n];
+        var expectedSolutionCount = [1, 1, 0, 0, 2, 10, 4, 40, 92, 352, 724, 2680, 14200][n];
 
         expect(solutionCount).to.be.equal(expectedSolutionCount);
       });
     });
     it('finds the number of valid solutions for n = 9', function() {
-      _([9]).map(function(n) {
+      _.range(9,10).map(function(n) {
         var solutionCount = countNQueensSolutions(n);
         var expectedSolutionCount = 352;
 
         expect(solutionCount).to.be.equal(expectedSolutionCount);
       });
     });
-
+    xit('finds the number of valid solutions for n', function() {
+      var solutionCount = countNQueensSolutions(5);
+      var expectedSolutionCount = 10;
+      expect(solutionCount).to.be.equal(expectedSolutionCount);
+    });
   });
 
 

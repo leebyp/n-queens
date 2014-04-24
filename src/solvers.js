@@ -81,7 +81,7 @@ window.findNQueensSolution = function(n) {
 
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
-window.countNQueensSolutions = function(n) {
+window.countNQueensSolutionsOld = function(n) {
   var outcomes = [];
   var iterateBoard = function(currentBoard, row){
 
@@ -102,6 +102,39 @@ window.countNQueensSolutions = function(n) {
   };
 
   iterateBoard(new Board({n: n}), 0);
+  console.log('Number of solutions for ' + n + ' combinations:', outcomes.length);
+  return outcomes.length;
+};
+
+window.countNQueensSolutions = function(n) {
+  var outcomes = [];
+
+  var iterateBoard = function(currentBoard, row, usedColumns, usedMajor, usedMinor){
+    // debugger;
+    if (row === n) {   //base case
+      outcomes.push(currentBoard.rows());
+    } else {
+      var newBoard = new Board(currentBoard.rows());  //create a copy of currentBoard
+      for (var i=0; i<n; i++){
+        newBoard.togglePiece(row, i);
+        // if (!newBoard.hasAnyQueenConflictsOn(row,i)){    //recursive case when no conflict
+        // usedColumns has a key on this column)
+        if ((!(i in usedColumns) && !((i-row) in usedMajor)) && !((i+row) in usedMinor)){
+          var newUsedColumns = _.clone(usedColumns);
+          newUsedColumns[i] = true;
+          var newUsedMajor = _.clone(usedMajor);
+          newUsedMajor[i-row] = true;
+          var newUsedMinor = _.clone(usedMinor);
+          newUsedMinor[i+row] = true;
+          iterateBoard(newBoard, row + 1, newUsedColumns, newUsedMajor, newUsedMinor);
+        }
+        newBoard.togglePiece(row, i);    //remove to continue checking next slot
+      }
+    }
+
+  };
+
+  iterateBoard(new Board({n: n}), 0, {}, {}, {});
   console.log('Number of solutions for ' + n + ' combinations:', outcomes.length);
   return outcomes.length;
 };
