@@ -83,25 +83,25 @@ window.findNQueensSolution = function(n) {
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
   var outcomes = [];
-  var iterateBoard = function(currentBoard, rounds){
+  var iterateBoard = function(currentBoard, row){
 
-    if (rounds === 0) {   //base case
+    if (row === n) {   //base case
       outcomes.push(currentBoard.rows());
     } else {
       var newBoard = new Board(currentBoard.rows());  //create a copy of currentBoard
 
       for (var i=0; i<n; i++){
-        newBoard.togglePiece(n - rounds, i);
-        if (!newBoard.hasAnyQueensConflicts()){    //recursive case when no conflict
-          iterateBoard(newBoard, rounds - 1);
+        newBoard.togglePiece(row, i);
+        if (!newBoard.hasAnyQueenConflictsOn(row,i)){    //recursive case when no conflict
+          iterateBoard(newBoard, row + 1);
         }
-        newBoard.togglePiece(n-rounds, i);    //remove to continue checking next slot
+        newBoard.togglePiece(row, i);    //remove to continue checking next slot
       }
     }
 
   };
 
-  iterateBoard(new Board({n: n}), n);
-  console.log('Number of solutions for ' + n + ' rooks:', outcomes.length);
+  iterateBoard(new Board({n: n}), 0);
+  console.log('Number of solutions for ' + n + ' combinations:', outcomes.length);
   return outcomes.length;
 };
