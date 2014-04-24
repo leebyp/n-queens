@@ -50,7 +50,7 @@ describe('solvers', function() {
         expect(solutionCount).to.be.equal(expectedSolutionCount);
       });
     });
-    it('finds the number of valid solutions for n = 9', function() {
+    xit('finds the number of valid solutions for n = 9', function() {
       _.range(9,10).map(function(n) {
         var solutionCount = countNQueensSolutions(n);
         var expectedSolutionCount = 352;
@@ -58,9 +58,9 @@ describe('solvers', function() {
         expect(solutionCount).to.be.equal(expectedSolutionCount);
       });
     });
-    xit('finds the number of valid solutions for n', function() {
-      var solutionCount = countNQueensSolutions(5);
-      var expectedSolutionCount = 10;
+    it('finds the number of valid solutions for n', function() {
+      var solutionCount = countNQueensSolutions(12);
+      var expectedSolutionCount = 2680;
       expect(solutionCount).to.be.equal(expectedSolutionCount);
     });
   });

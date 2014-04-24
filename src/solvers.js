@@ -110,31 +110,30 @@ window.countNQueensSolutions = function(n) {
   var outcomes = [];
 
   var iterateBoard = function(currentBoard, row, usedColumns, usedMajor, usedMinor){
-    // debugger;
     if (row === n) {   //base case
-      outcomes.push(currentBoard.rows());
-    } else {
-      var newBoard = new Board(currentBoard.rows());  //create a copy of currentBoard
-      for (var i=0; i<n; i++){
-        newBoard.togglePiece(row, i);
-        // if (!newBoard.hasAnyQueenConflictsOn(row,i)){    //recursive case when no conflict
-        // usedColumns has a key on this column)
-        if ((!(i in usedColumns) && !((i-row) in usedMajor)) && !((i+row) in usedMinor)){
-          var newUsedColumns = _.clone(usedColumns);
-          newUsedColumns[i] = true;
-          var newUsedMajor = _.clone(usedMajor);
-          newUsedMajor[i-row] = true;
-          var newUsedMinor = _.clone(usedMinor);
-          newUsedMinor[i+row] = true;
-          iterateBoard(newBoard, row + 1, newUsedColumns, newUsedMajor, newUsedMinor);
-        }
-        newBoard.togglePiece(row, i);    //remove to continue checking next slot
+      outcomes.push(currentBoard);
+    }
+
+    var newBoard = currentBoard.slice();
+    for (var column=0; column<n; column++){
+      if ( (!(column in usedColumns) &&
+            !((column-row) in usedMajor)) &&
+            !((column+row) in usedMinor) ) { // if there are no conflicts
+        newBoard[row] = column;
+        var newUsedColumns = _.clone(usedColumns);
+        newUsedColumns[column] = true;
+        var newUsedMajor = _.clone(usedMajor);
+        newUsedMajor[column-row] = true;
+        var newUsedMinor = _.clone(usedMinor);
+        newUsedMinor[column+row] = true;
+
+        iterateBoard(newBoard, row + 1, newUsedColumns, newUsedMajor, newUsedMinor);
       }
     }
 
   };
 
-  iterateBoard(new Board({n: n}), 0, {}, {}, {});
-  console.log('Number of solutions for ' + n + ' combinations:', outcomes.length);
+  iterateBoard(new Array(n), 0, {}, {}, {});
+  // console.log('Number of solutions for ' + n + ' combinations:', outcomes.length);
   return outcomes.length;
 };
