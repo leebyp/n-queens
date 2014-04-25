@@ -289,6 +289,6 @@ window.countNQueensSolutions = function(n){
 };
 
 //================== n=12 ~40ms, 
-//================== n=13 ~400ms
+//================== n=13 ~400ms    // ~250ms on a mac mini
 //================== attempt at using symmetry for even n
 //==================================================== 
