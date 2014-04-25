@@ -50,10 +50,18 @@ describe('solvers', function() {
         expect(solutionCount).to.be.equal(expectedSolutionCount);
       });
     });
-    it('finds the number of valid solutions for n = 9', function() {
-      _([9]).map(function(n) {
+    it('finds the number of valid solutions for n = 12', function() {
+      _([12]).map(function(n) {
         var solutionCount = countNQueensSolutions(n);
-        var expectedSolutionCount = 352;
+        var expectedSolutionCount = 14200;
+
+        expect(solutionCount).to.be.equal(expectedSolutionCount);
+      });
+    });
+    it('finds the number of valid solutions for n = 13', function() {
+      _([13]).map(function(n) {
+        var solutionCount = countNQueensSolutions(n);
+        var expectedSolutionCount = 73712;
 
         expect(solutionCount).to.be.equal(expectedSolutionCount);
       });
