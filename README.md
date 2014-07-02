@@ -1,6 +1,8 @@
 #n-queens
 
-This is a copy of the work I did on a private repo, originally a project from
-[Hack Reactor's](http://hackreactor.com) curriculum. This project was worked
-on with a pair; it's representative of the kind of problems that I've tackled,
-but not of my solo work.
+A Javascript implementation of the classical n-queens problem. Initially a very brute force method was taken to check or collisions between placing queens across the whole board, and checking for the solutions. Optimizations to the code were introduced, culminating in a method to keep track used columns/rows/diagonals using binary operations and bitshifting.
+
+This greatly improved the speed to reach solutions:
+n=9(9000ms) ===> n=12(40ms) and n=13(400ms) [symmetry properties were exploited for even n]
+
+This was originally a project from Hack Reactor's curriculum.
